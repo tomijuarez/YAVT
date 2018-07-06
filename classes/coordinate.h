@@ -5,16 +5,23 @@
 class Coordinate
 {
 public:
-    Coordinate();
-    void setCoord(unsigned int x,unsigned y);
-    unsigned int getCoordX() const;
-    unsigned int getCoordY() const;
-    ~Coordinate();
+    Coordinate() { };
+    void setCoord(int x,int y){
+        this->_x = x;
+        this->_y = y;
+    };
+    int getCoordX() const{
+        return this->_x;
+    };
+    int getCoordY() const{
+        return this->_y;
+    };
+    ~Coordinate() { };
 
 private:
 
-    unsigned int _x;
-    unsigned int _y;
+    int _x;
+    int _y;
 
 };
 

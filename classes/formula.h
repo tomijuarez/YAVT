@@ -9,9 +9,9 @@
 
 class Formula {
 public:
-    Formula(QQueue<std::string> & tokens,std::string ConstU,std::string ConstE,bool & E);
+    Formula(QQueue<std::string>  tokens,std::string ConstU,std::string ConstE,bool & E);
     ~Formula();
-    void setClauses(QQueue<std::string> & tokens,bool & E);//Nuevo agregue los 2 valores booleanos
+    void setClauses(QQueue<std::string> & tokens,bool & E);
     const unsigned int getType()const;
     void getFirstOperant(QQueue<std::string> & Q);
     void getSecondOperant(QQueue<std::string> & Q);

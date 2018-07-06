@@ -1,6 +1,6 @@
 #include "generatortest.h"
 
-GeneratorTest::GeneratorTest(QQueue<string> P,QQueue<string> Q,QQueue<string> I,QQueue<string> C,ParsedData algorithm)
+void GeneratorTest::setData(QQueue<string> P,QQueue<string> Q,QQueue<string> I,QQueue<string> C,ParsedData algorithm)
 {  
 	//SUPONGO EL IDENTIFICADOR DE LA SENTENCIA DEL ALGORITMO ::expresion::
     this->_PROOF = NULL;

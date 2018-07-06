@@ -16,15 +16,18 @@ void Parser::_cleanParserData() {
     assignationsFalse.clear();
     assignationsTrue.clear();
     outsideAssignations.clear();
+    errors.clear();
     tree.clear();
 }
 
-void Parser::getData(QQueue<string> & data) {
+void Parser::getData(QQueue<string> & data, QList<char*> & formulaErrors) {
     tree.toQueue(data);
+    formulaErrors = errors;
+    errors.clear();
     tree.clear();
 }
 
-void Parser::getAlgorithmData(ParsedData & data) {
+void Parser::getAlgorithmData(ParsedData & data, QList<char*> & algorithmErrors, unsigned int & numTests) {
     QQueue<string> tokens;
     tree.toQueue(tokens);
 
@@ -37,10 +40,11 @@ void Parser::getAlgorithmData(ParsedData & data) {
                     outsideAssignations,
                     tokens
                 );
+    algorithmErrors = errors;
+    numTests = (ifFound) ? 2 : 5;
 
     this->_cleanParserData();
 }
-
 
 void Parser::parse(char condition[]) {
     strcat(condition, "\0\0");
@@ -53,5 +57,3 @@ void Parser::parse(QString condition) {
     char* buffer = array.data();
     this->parse(buffer);
 }
-
-

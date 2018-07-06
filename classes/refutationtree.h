@@ -5,13 +5,13 @@
 #include "formula.h"
 #include <string>
 #include <QQueue>
-#include "treeaux.h"
+#include "ternarytree.h"
 
 class RefutationTree {
     public:
         RefutationTree();
         ~RefutationTree();
-        void drawingTree(QQueue<std::string> tokens,TreeAux & TernaryTree);
+        void generateTree(QQueue<std::string> tokens,TernaryTree & TernaryTree);
 
     private:
 

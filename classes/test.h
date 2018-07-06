@@ -1,5 +1,7 @@
-#ifndef GENERATORTEST_H
-#define GENERATORTEST_H
+#ifndef TEST_H
+#define TEST_H
+
+
 #include <iostream>
 #include <string>
 #include <QQueue>
@@ -9,26 +11,27 @@
 
 using namespace std;
 
-class GeneratorTest
+class Test
 {
 public:
-	/** La estructura que almacena los datos del codigo debe traer identificado que tipo de sentencia posee el algoritmo(IF-THEN / WHILE / IF-ELSE) **/
-    GeneratorTest(QQueue<string> P,QQueue<string> Q,QQueue<string> I,QQueue<string> C,ParsedData algorithm);
+    /** La estructura que almacena los datos del codigo debe traer identificado que tipo de sentencia posee el algoritmo(IF-THEN / WHILE / IF-ELSE) **/
+    Test() { }
+    void setData(QQueue<string> P,QQueue<string> Q,QQueue<string> I,QQueue<string> C,ParsedData algorithm);
     void getTest(unsigned int Test,QQueue<string> & Output,bool & endProof);
     bool endProof();
-    ~GeneratorTest();
+    ~Test();
 
 private:
 
-	struct _proof
-	{
-		QQueue<string> test;
+    struct _proof
+    {
+        QQueue<string> test;
         bool view;
-		unsigned int num;
-		_proof* nextTest;
-	};
-	/** Genera las formulas pruebas de forma dinamica **/
-	_proof* _PROOF;
+        unsigned int num;
+        _proof* nextTest;
+    };
+    /** Genera las formulas pruebas de forma dinamica **/
+    _proof* _PROOF;
 
    /**Tipos de sentencia incluida en el algoritmo a verificar **/
    const unsigned int _IfThen = 1;
@@ -64,5 +67,4 @@ private:
 
    _proof* _getProof(unsigned int num,unsigned int test,_proof* proof);
 };
-
-#endif // GENERATORTEST_H
+#endif // TEST_H

@@ -13,7 +13,8 @@ class GeneratorTest
 {
 public:
 	/** La estructura que almacena los datos del codigo debe traer identificado que tipo de sentencia posee el algoritmo(IF-THEN / WHILE / IF-ELSE) **/
-    GeneratorTest(QQueue<string> P,QQueue<string> Q,QQueue<string> I,QQueue<string> C,ParsedData algorithm);
+    GeneratorTest() { }
+    void setData(QQueue<string> P,QQueue<string> Q,QQueue<string> I,QQueue<string> C,ParsedData algorithm);
     void getTest(unsigned int Test,QQueue<string> & Output,bool & endProof);
     bool endProof();
     ~GeneratorTest();

@@ -1,7 +1,9 @@
-#ifndef TREEAUX_H
-#define TREEAUX_H
+#ifndef TERNARYTREE_H
+#define TERNARYTREE_H
+
 #include <iostream>
 #include <string>
+#include <QString>
 #include <QQueue>
 #include <QMap>
 #include <QList>
@@ -9,26 +11,23 @@
 #include "data.h"
 
 
-class TreeAux
+class TernaryTree
 {
 public:
-    TreeAux();
-    ~TreeAux();
+    TernaryTree();
+    ~TernaryTree();
     void setTree(std::string formula);
     void addFormulas(unsigned int type,std::string ConclusionOne, std::string ConclusionTwo,std::string previousFormula,bool E);
     void generateBranches();
     void getTree(QQueue<data> & Output);
-    void getBranches(QList<std::string> & branches);
+    void getBranches(QList<QString> & branches);
+    unsigned int getNumBranch();
     void closeBranch();
     bool closeTree();
-    void ConstU(QList<std::string> & L);//Nuevo
+    void ConstU(QList<std::string> & L);
     std::string ConstantE();
     std::string ConstantU();
 
-    //solo para verificar codigo
-    void printTree();
-    void printLeaves();
-    void printBranches();
     void printCoordenates();
 
 private:
@@ -41,14 +40,13 @@ private:
     };
 
    //Nuevo para administrar las ramas
-    struct _Branch
-    {
-    	unsigned int num;
-    	_treeNode* branch;
-    	bool view;
-    	bool close;
-    	_Branch* nextBranch;
-    	
+    struct _Branch {
+        unsigned int num;
+        _treeNode* branch;
+        bool view;
+        bool close;
+        _Branch* nextBranch;
+
     };
 
     //contiene los nodos del arbol
@@ -64,11 +62,9 @@ private:
     void admisConst(bool E);
 
     /**Nuevo**/
-    struct _constCuant
-    {
+    struct _constCuant{
         std::string constant;
         _constCuant* nextConst;
-        
     };
     _constCuant* _CuantConst;
     void _insertConst(_constCuant* & constants, _constCuant* constant);
@@ -80,12 +76,13 @@ private:
     _Branch* _newBranch(_treeNode* sheet,unsigned int num);
     void _insertBranch(_Branch* & branches,_Branch* branch);
     void _generateBranches();
-    void _copy(_treeNode* sheet,QList<std::string> & branches);
+    void _copy(_treeNode* sheet,QList<QString> & branches);
     bool _isLiteral(std::string formula);
     _Branch* _nextBranch;
     _Branch* _currentBranch;
     bool _endBranches;
     bool _closeTree(_Branch* branches);
+
 
     _treeNode* _newNode(std::string formula);//Nuevo nodo del arbol
     _treeNode* _findSheet(std::string formula);// me devuelve la rama del arbol que voy a derivar, en caso contrario me devuelve NULL
@@ -96,15 +93,13 @@ private:
     bool _sameBranch(_treeNode* sheet,std::string formula);//Me devuelve un valor booleano diciendome si la hoja se encuentra en la misma rama de la formula a la que voy a derivar, ya que solo en esas hojas voy a agregar los nodos
 
     void _insertOrdered(_treeNode* node,int Y);
-    void _insertTypeA(QQueue<_treeNode*> & tree,std::string formulaOne,std::string formulaTwo,std::string previousFormula);
+    void _insert(QQueue<_treeNode*> & tree,std::string formulaOne,std::string formulaTwo,std::string previousFormula,int type);
     void _insertTypeA_cuant(QQueue<_treeNode*> & tree,std::string formula,std::string previousFormula,bool E);
-    void _insertTypeB(QQueue<_treeNode*> & tree,std::string formulaOne,std::string formulaTwo,std::string previousFormula);
 
-    //para imprimir las ramas , solo para verificar su correcto funcionamiento
-    
-    void _printBranch(_treeNode* branch);
-    void _printBranches(_Branch* branches);
-    void _printLista(_constCuant* lista);
+    void _conversion(char output[],std::string input);
+
+    bool isrep(Coordinate coord);
+
 };
 
-#endif // TREEAUX_H
+#endif // TERNARYTREE_H

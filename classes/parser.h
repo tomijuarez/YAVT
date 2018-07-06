@@ -15,8 +15,8 @@ class Parser {
 
         ~Parser();
 
-        void getAlgorithmData(ParsedData & algorithmData);
-        void getData(QQueue<std::string> & data);
+        void getAlgorithmData(ParsedData & algorithmData, QList<char*> & algorithmErrors, unsigned int & numTest);
+        void getData(QQueue<std::string> & data, QList<char*> & formulaErrors);
         void parse(char condition[]);
         void parse(QString condition);
     private:

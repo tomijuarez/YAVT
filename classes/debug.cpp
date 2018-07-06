@@ -1,23 +1,20 @@
 #include "debug.h"
 
-Debug::Debug(TreeAux Tree)
-{
+Debug::Debug(TreeAux Tree) {
     this->_Tree = Tree;
 }
 
 void Debug::StardDebug(QMap<int, QQueue<std::string> > & result){
-    QList<std::string> branch;
+    QList<QString> branch;
     this->_Tree.getBranches(branch);
     unsigned int num = 1;
     bool close;
     std::string formulaOne;
     std::string formulaTwo;
-     QQueue<std::string> OpForm;
+    QQueue<std::string> OpForm;
     std::cout<<std::endl<<"***********Verificacion formal del algoritmo****************"<<std::endl;
-    while( !branch.empty() )
-    {
-        std::cout<<"*****************Rama Nueva******************"<<std::endl;
-        AnalizerBranch analizer(branch,close,formulaOne,formulaTwo);
+    while( !branch.empty() ) {
+
 
         if(close == true)
         {

@@ -1,6 +1,6 @@
 #include "formula.h"
 
-Formula::Formula(QQueue<std::string> & tokens,std::string ConstU,std::string ConstE,bool & E) {
+Formula::Formula(QQueue<std::string>  tokens,std::string ConstU,std::string ConstE,bool & E) {
 
 	this->_resolutionType = 0;
     this->_ConstE = ConstE;
@@ -169,109 +169,79 @@ std::string Formula::_stringQueue(QQueue< char > queue) {
 std::string Formula::_negLiteral(std::string  predicate) {
      QQueue< char > output;
 
-     bool prevIqual = false;
      bool prevhigher = false;
      bool prevLess = false;
-     bool prevNeg = false;
+
 
 
      int pos = 0;
 
+     for(;pos<= predicate.size();pos++){
+         std::cout << predicate[pos];
+         std::cout << std::endl;
+     }
+
+     pos = 0;
      while(pos <= predicate.size())
      {
-        if(predicate[pos] != '<')
-        {
-            if(predicate[pos] != '>')
-            {
-                if(predicate[pos] != '!')
-                {
-                    if(predicate[pos] != '=')
+         if(predicate[pos] != '<')
+         {
+              if(predicate[pos] != '>')
+              {
+                    if(predicate[pos] != '!')
                     {
-
-                        if(((prevhigher)||(prevLess))&&(prevIqual))
-                        {
-
-                            prevhigher = false;
-                            prevLess = false;
-                            output.pop_back();
-
-                        }
-
-                        output.push_back(predicate[pos]);
-                        pos++;
-
-                    }
-                    else
-                    {
-                        if(prevNeg)
-                        {	// ya fue agregado el '=' a la cola
-
-                            pos++;
-                        }
-                        else if((prevhigher)||prevLess)
-                        {	// el menor o mayor,segun el comparador detectado ya esta agregado, solo agrego el =
-                            output.pop_back();
-                            pos++;
+                        if(predicate[pos] != '='){
+                            //es un simbolo no comparador
+                            if(prevhigher||prevLess){
+                                std::cout<<"pase por aca";
+                                std::cout<< std::endl;
+                                output.push_back('=');
+                                output.push_back(predicate[pos]);
+                                prevhigher = false;
+                                prevLess = false;
+                                pos++;
+                            }
+                            else{
+                                 output.push_back(predicate[pos]);
+                                 pos++;
+                            }
                         }
                         else
                         {
-                            prevIqual = true;
-                            output.push_back('!');
-                            output.push_back('=');
-                            pos++;
-
+                            if(prevhigher||prevLess){
+                                prevhigher = false;
+                                prevLess = false;
+                                pos++;
+                            }
+                            else{
+                                output.push_back('!');
+                                output.push_back('=');
+                                pos++;
+                                pos++;
+                            }
                         }
-
                     }
-                }else
-                {
-               	//al detectar el '!' ya se sabe que es un distinto, se reemplaza por un '='
-                    output.push_back('=');
-                    prevNeg = true;
-                    pos++;
-                }
+                    else//se detecto un "!"
+                    {
+                        output.push_back('=');
+                        output.push_back('=');
+                        pos++;
+                    }
+              }
+              else//se detecto un mayor
+              {
+                  output.push_back('<');
+                  pos++;
+                  prevhigher = true;
 
-            }//se detecto un mayor
-            else
-            {
+              }
+         }
+         else{
+             output.push_back('>');
+             pos++;
+             prevLess = true;
 
-                if(prevIqual){
-                    output.pop_back();
-                    output.pop_back();
-                    output.push_back('<');
-                    pos++;
-                }
-                else
-                {
-
-                    prevhigher = true;
-                    output.push_back('<');
-                    output.push_back('=');
-                    pos++;
-                }
-            }
-
-        }//se detecto un menor
-        else
-        {
-
-                if(prevIqual){
-                    output.pop_back();
-                    output.pop_back();
-                    output.push_back('>');
-                    pos++;
-                }
-                else
-                {
-
-                    prevLess = true;
-                    output.push_back('>');
-                    output.push_back('=');
-                    pos++;
-                }
-
-        }
-
+         }
 
      }//fin de ciclo
 
